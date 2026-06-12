@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 1 - Card Interactive</title>
+    <!-- Import Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Font Awesome untuk ikon Love -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Sedikit custom transition biar smooth, tetap di dalam HTML */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .like-btn {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .like-btn:active {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8 font-sans">
+
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Tugas 1: Interactive Cards</h1>
+        
+        <!-- Grid Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover hover:shadow-xl hover:-translate-y-1 cursor-pointer group relative">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coding" class="w-full h-48 object-cover">
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-semibold tracking-wide uppercase text-blue-600 bg-blue-100 px-2 py-1 rounded">Technology</span>
+                        
+                        <!-- Tombol Favorite -->
+                        <button class="like-btn text-gray-400 hover:text-red-500 focus:outline-none" onclick="toggleFavorite(this)">
+                            <i class="fa-solid fa-heart text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Web Development</h2>
+                    <p class="text-gray-600 text-sm leading-relaxed">Belajar membangun website modern menggunakan teknologi terkini seperti React dan Tailwind CSS.</p>
+                </div>
+                
+                <div class="px-6 py-4 border-t border-gray-100 flex justify-between items-center bg-gray-50">
+                    <span class="text-sm text-gray-500">By Nusacodes</span>
+                    <span class="text-sm font-medium text-blue-600">Read More &rarr;</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover hover:shadow-xl hover:-translate-y-1 cursor-pointer group relative">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Data" class="w-full h-48 object-cover">
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-semibold tracking-wide uppercase text-green-600 bg-green-100 px-2 py-1 rounded">Data Science</span>
+                        
+                        <button class="like-btn text-gray-400 hover:text-red-500 focus:outline-none" onclick="toggleFavorite(this)">
+                            <i class="fa-solid fa-heart text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">Data Analysis</h2>
+                    <p class="text-gray-600 text-sm leading-relaxed">Menganalisis data kompleks untuk menemukan pola dan wawasan yang berharga bagi bisnis.</p>
+                </div>
+                
+                <div class="px-6 py-4 border-t border-gray-100 flex justify-between items-center bg-gray-50">
+                    <span class="text-sm text-gray-500">By DataTeam</span>
+                    <span class="text-sm font-medium text-green-600">Read More &rarr;</span>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover hover:shadow-xl hover:-translate-y-1 cursor-pointer group relative">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Design" class="w-full h-48 object-cover">
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-semibold tracking-wide uppercase text-purple-600 bg-purple-100 px-2 py-1 rounded">UI/UX Design</span>
+                        
+                        <button class="like-btn text-gray-400 hover:text-red-500 focus:outline-none" onclick="toggleFavorite(this)">
+                            <i class="fa-solid fa-heart text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Creative Design</h2>
+                    <p class="text-gray-600 text-sm leading-relaxed">Merancang antarmuka pengguna yang intuitif dan pengalaman digital yang memukau.</p>
+                </div>
+                
+                <div class="px-6 py-4 border-t border-gray-100 flex justify-between items-center bg-gray-50">
+                    <span class="text-sm text-gray-500">By DesignHub</span>
+                    <span class="text-sm font-medium text-purple-600">Read More &rarr;</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript untuk Interaksi -->
+    <script>
+        function toggleFavorite(btn) {
+            // Mencegah event click pada card terpicu saat klik tombol love
+            event.stopPropagation();
+            
+            const icon = btn.querySelector('i');
+            
+            // Cek apakah sedang aktif (merah)
+            if (btn.classList.contains('text-red-500')) {
+                // Hapus favorite
+                btn.classList.remove('text-red-500');
+                btn.classList.add('text-gray-400');
+                icon.classList.remove('fa-solid'); // Hati outline
+                icon.classList.add('fa-regular');   // Hati solid
+            } else {
+                // Tambah favorite
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-red-500');
+                icon.classList.remove('fa-regular'); // Hati outline
+                icon.classList.add('fa-solid');      // Hati solid
+                
+                // Efek pop kecil saat diklik
+                btn.style.transform = "scale(1.2)";
+                setTimeout(() => {
+                    btn.style.transform = "scale(1)";
+                }, 200);
+            }
+        }
+
+        // Tambahan: Klik card untuk alert (opsional, buat nunjukin interaktif)
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('click', () => {
+                console.log('Card clicked!');
+            });
+        });
+    </script>
+</body>
+</html>
