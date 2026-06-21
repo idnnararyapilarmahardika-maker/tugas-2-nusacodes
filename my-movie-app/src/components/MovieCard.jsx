@@ -1,40 +1,39 @@
 import React from 'react';
+import { Heart, Star } from 'lucide-react';
 
-const MovieCard = ({ title, year, rating, genre, poster }) => {
+const MovieCard = ({ title, year, rating, genre, poster, color }) => {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
-      {/* Bagian Gambar Poster */}
-      <div className="relative h-64 w-full bg-gray-200">
-        <img 
-          src={poster} 
-          alt={title} 
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            // Fallback kalau gambar error, ganti jadi warna solid
-            e.target.style.display = 'none';
-            e.target.parentElement.style.backgroundColor = '#4f46e5'; 
-            e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full text-white text-4xl font-bold">${title.charAt(0)}</div>`;
-          }}
-        />
-      </div>
-
-      {/* Bagian Info Film */}
-      <div className="p-5">
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1 h-6" title={title}>
-          {title}
-        </h3>
+    <div className="flex-shrink-0 w-40 md:w-48 group cursor-pointer">
+      {/* Container Gambar dengan Gradient Overlay */}
+      <div className="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:scale-105" style={{ backgroundColor: color }}>
+        {/* Label Genre (Pojok Kiri Atas) */}
+        <div className="absolute top-2 left-2 bg-black/40 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white border border-white/10">
+          {genre}
+        </div>
         
-        <div className="flex justify-between items-center text-xs text-gray-500 mb-4">
-          <span className="font-medium">{year}</span>
-          <span className="bg-indigo-50 text-indigo-700 px-2 py-1 rounded-md font-semibold border border-indigo-100">
-            {genre}
-          </span>
+        {/* Icon Heart (Pojok Kanan Atas) */}
+        <div className="absolute top-2 right-2 w-6 h-6 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/10 hover:bg-red-500/80 transition-colors">
+          <Heart size={12} className="text-white fill-transparent" />
         </div>
 
-        <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
-          <span className="text-yellow-500 text-lg">⭐</span>
-          <span className="font-bold text-gray-800">{rating}</span>
-          <span className="text-gray-400 text-sm">/ 10</span>
+        {/* Judul di dalam Poster (Opsional, kalau di Figma ada teks di dalam gambar) */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 to-transparent pt-10">
+           <h3 className="text-sm font-bold text-white leading-tight line-clamp-2">{title}</h3>
+        </div>
+        
+        {/* Kalau mau pake gambar asli, uncomment img di bawah & hapus div gradient di atas */}
+        {/* <img src={poster} alt={title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" /> */}
+      </div>
+
+      {/* Info di Bawah Kartu */}
+      <div className="space-y-1">
+        <h4 className="text-sm font-semibold text-gray-100 truncate">{title}</h4>
+        <div className="flex items-center justify-between text-xs text-gray-400">
+          <div className="flex items-center gap-1 text-yellow-500">
+            <Star size={10} className="fill-yellow-500" />
+            <span className="font-medium text-gray-200">{rating}</span>
+          </div>
+          <span>{year}</span>
         </div>
       </div>
     </div>
